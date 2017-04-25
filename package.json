@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "pm2 index.js"
+    "start": "pm2 start index.js"
   },
   "dependencies": {
     "body-parser": "latest",

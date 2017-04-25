@@ -1,3 +1,4 @@
-/**
- * Created by Igor on 25.04.2017.
- */
+const requireDir = require('require-dir');
+const Router = require('../core/router');
+
+module.exports = new Router(requireDir('./outlets'));
