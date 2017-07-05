@@ -6,13 +6,13 @@
     "start": "pm2 start index.js"
   },
   "dependencies": {
+    "bcrypt": "latest",
     "body-parser": "latest",
-    "co": "^4.6.0",
     "env2": "latest",
     "express": "latest",
-    "jsonwebtoken": "^7.4.0",
+    "jsonwebtoken": "latest",
     "lodash": "latest",
     "mongoose": "latest",
-    "require-dir": "^0.3.1"
+    "require-dir": "latest"
   }
 }

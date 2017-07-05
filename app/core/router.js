@@ -10,7 +10,6 @@ module.exports = class Router {
 		this.usedMiddlewares = {};
 		this.expressRouter = express.Router();
 		this.app = null;
-
 	}
 
 	setApp(app) {
@@ -40,7 +39,7 @@ module.exports = class Router {
 			this.use(routeName);
 			this.routes[routeName](new HttpRouter(this, routeName));
 		});
-		this.app.use('/', this.expressRouter);
+		this.app.use('/api', this.expressRouter);
 	}
 
 };
