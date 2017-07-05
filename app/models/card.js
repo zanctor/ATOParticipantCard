@@ -5,7 +5,7 @@ const Card = new Schema({
     number: Number,
     dateIssued: Date,
     status: String,
-    owner: {type: Schema.Types.ObjectId, ref: 'User'}
+    holder: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
 module.exports = mongoose.model('Card', Card);

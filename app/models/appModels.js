@@ -3,7 +3,7 @@ const CardModel = require('./card');
 const OutletModel = require('./outlet');
 
 module.exports = {
-
+    UserModel, CardModel, OutletModel
 };
 
 
