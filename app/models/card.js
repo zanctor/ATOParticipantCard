@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Card = new Schema({
     number: Number,
     dateIssued: Date,
-    status: String,
+    status: Number,
     holder: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
