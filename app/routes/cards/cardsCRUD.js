@@ -1,4 +1,5 @@
 const createModelMiddleware = require('../middleware/createModelMiddleware');
+const findModelByMiddleware = require('../middleware/findModelByMiddleware');
 const {CardModel} = require('../../models/appModels');
 
 module.exports = (router) => {
@@ -9,10 +10,9 @@ module.exports = (router) => {
         });
 
     router.get('/cards/:id',
+        findModelByMiddleware(CardModel, {_id: 'id'}, 'req.params', 'card'),
         async (req, res) => {
-            const card = await CardModel.findOne({_id: req.params.id}).exec();
-            if (!card) return res.errorResponse(404, 'Card not found');
-            res.jsonSuccess(card);
+            res.jsonSuccess(req.card);
         });
 
     router.post('/cards',
@@ -22,15 +22,13 @@ module.exports = (router) => {
         });
 
     router.patch('/cards/:id',
+        findModelByMiddleware(CardModel, {_id: 'id'}, 'req.params', 'card'),
         async (req, res) => {
-            let card = await CardModel.findOne({_id: req.params.id}).exec();
-            if (!card) return res.errorResponse(404, 'Card not found');
-
             try {
                 for (let key in req.body) {
-                    card[key] = req.body[key];
+                    req.card[key] = req.body[key];
                 }
-                await card.save();
+                await req.card.save();
                 res.jsonSuccess();
             } catch (e) {
                 res.errorResponse(400, e);

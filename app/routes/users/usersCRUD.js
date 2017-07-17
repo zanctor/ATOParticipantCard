@@ -1,38 +1,38 @@
 const checkEndpointAccessMiddleware = require('../../auth/middleware/checkEndpointAccessMiddleware');
 const createModelMiddleware = require('../middleware/createModelMiddleware');
+const findModelByMiddleware = require('../middleware/findModelByMiddleware');
 const {UserModel} = require('../../models/appModels');
 
 module.exports = (router) => {
 
-    router.get(checkEndpointAccessMiddleware(4), '/users',
+    router.get('/users',
+        checkEndpointAccessMiddleware(4),
         async (req, res) => {
             res.jsonSuccess(await UserModel.find({}).exec());
         });
 
-    router.get(checkEndpointAccessMiddleware(4), '/users/:id',
-        async (req, res) => {
-            const user = await UserModel.findOne({_id: req.params.id}).exec();
-            if (!user) return res.errorResponse(404, 'User not found');
-            res.jsonSuccess(user);
+    router.get('/users/:id',
+        checkEndpointAccessMiddleware(4),
+        findModelByMiddleware(UserModel, {_id: 'id'}, 'req.params', 'user'),
+        (req, res) => {
+            res.jsonSuccess(req.user);
         });
 
-    router.post(checkEndpointAccessMiddleware(4),
+    router.post('/users',
+        checkEndpointAccessMiddleware(4),
         createModelMiddleware(UserModel, 'user'),
-        '/users',
         (req, res) => {
             res.jsonSuccess(req.user);
         });
 
     router.patch('/users/:id',
+        findModelByMiddleware(UserModel, {_id: 'id'}, 'req.params', 'user'),
         async (req, res) => {
-            let user = await UserModel.findOne({_id: req.params.id}).exec();
-            if (!user) return res.errorResponse(404, 'User not found');
-
             try {
                 for (let key in req.body) {
-                    user[key] = req.body[key];
+                    req.user[key] = req.body[key];
                 }
-                await user.save();
+                await req.user.save();
                 res.jsonSuccess();
             } catch (e) {
                 res.errorResponse(400, e);

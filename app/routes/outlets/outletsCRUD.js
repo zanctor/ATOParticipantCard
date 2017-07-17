@@ -1,4 +1,5 @@
 const createModelMiddleware = require('../middleware/createModelMiddleware');
+const findModelByMiddleware = require('../middleware/findModelByMiddleware');
 const {OutletModel} = require('../../models/appModels');
 
 module.exports = (router) => {
@@ -9,10 +10,9 @@ module.exports = (router) => {
         });
 
     router.get('/outlets/:id',
-        async (req, res) => {
-            const outlet = await OutletModel.findOne({_id: req.params.id}).exec();
-            if (!outlet) return res.errorResponse(404, 'Outlet not found');
-            res.jsonSuccess(outlet);
+        findModelByMiddleware(OutletModel, {_id: 'id'}, 'req.params', 'outlet'),
+        (req, res) => {
+            res.jsonSuccess(req.outlet);
         });
 
     router.post('/outlets',
@@ -22,15 +22,13 @@ module.exports = (router) => {
         });
 
     router.patch('/outlets/:id',
+        findModelByMiddleware(OutletModel, {_id: 'id'}, 'req.params', 'outlet'),
         async (req, res) => {
-            let outlet = await OutletModel.findOne({_id: req.params.id}).exec();
-            if (!outlet) return res.errorResponse(404, 'Outlet not found');
-
             try {
                 for (let key in req.body) {
-                    outlet[key] = req.body[key];
+                    req.outlet[key] = req.body[key];
                 }
-                await outlet.save();
+                await req.outlet.save();
                 res.jsonSuccess();
             } catch (e) {
                 res.errorResponse(400, e);
