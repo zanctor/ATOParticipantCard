@@ -7,7 +7,7 @@ const {UserModel} = require('../../models/user');
 module.exports = (router) => {
 
     router.post('/authenticate',
-        checkMiddleware({email: true}, 'req.body'),
+        checkMiddleware({email: true, password: true}, 'req.body'),
         findModelByMiddleware(UserModel, {email: 'email'}, 'req.body', user),
         comparePasswordsMiddleware(),
         addUserTokenMiddleware(),

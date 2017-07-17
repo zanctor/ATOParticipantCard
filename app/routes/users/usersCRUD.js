@@ -1,6 +1,8 @@
 const checkEndpointAccessMiddleware = require('../../auth/middleware/checkEndpointAccessMiddleware');
 const createModelMiddleware = require('../middleware/createModelMiddleware');
 const findModelByMiddleware = require('../middleware/findModelByMiddleware');
+const hashPasswordMiddleware = require('../../auth/middleware/hashPasswordMiddleware');
+const hashPassword = require('../../lib/hashPassword');
 const {UserModel} = require('../../models/appModels');
 
 module.exports = (router) => {
@@ -20,6 +22,7 @@ module.exports = (router) => {
 
     router.post('/users',
         checkEndpointAccessMiddleware(4),
+        hashPasswordMiddleware(),
         createModelMiddleware(UserModel, 'user'),
         (req, res) => {
             res.jsonSuccess(req.user);
@@ -30,7 +33,11 @@ module.exports = (router) => {
         async (req, res) => {
             try {
                 for (let key in req.body) {
-                    req.user[key] = req.body[key];
+                    if (key === 'password') {
+                        req.user[key] = hashPassword(req.body[key]);
+                    } else {
+                        req.user[key] = req.body[key];
+                    }
                 }
                 await req.user.save();
                 res.jsonSuccess();
