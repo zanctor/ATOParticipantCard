@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const Card = new Schema({
@@ -7,5 +8,7 @@ const Card = new Schema({
     status: Number,
     holder: {type: Schema.Types.ObjectId, ref: 'User'}
 });
+
+Card.plugin(mongooseDelete);
 
 module.exports = mongoose.model('Card', Card);

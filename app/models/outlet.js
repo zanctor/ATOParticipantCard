@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const Outlet = new Schema({
@@ -10,5 +11,7 @@ const Outlet = new Schema({
     longitude: Number,
     provider: {type: Schema.Types.ObjectId, ref: 'User'}
 });
+
+Outlet.plugin(mongooseDelete);
 
 module.exports = mongoose.model('Outlet', Outlet);

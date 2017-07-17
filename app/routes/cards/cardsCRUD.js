@@ -35,4 +35,11 @@ module.exports = (router) => {
             }
         });
 
+    router.delete('/cards/:id',
+        findModelByMiddleware(CardModel, {_id: 'id'}, 'req.params', 'card'),
+        async (req, res) => {
+            await req.card.delete();
+            res.jsonSuccess();
+        });
+
 };

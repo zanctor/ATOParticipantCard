@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
@@ -10,8 +11,9 @@ const User = new Schema({
     phone: String,
     password: {type: String, required: true},
     role: {type: Number, default: 1},
-    activated: {type: Boolean, default: false},
     avatarUrl: String
 });
+
+User.plugin(mongooseDelete);
 
 module.exports = mongoose.model('User', User);

@@ -13,6 +13,7 @@
     "jsonwebtoken": "latest",
     "lodash": "latest",
     "mongoose": "latest",
+    "mongoose-delete": "^0.4.0",
     "require-dir": "latest"
   }
 }
