@@ -10,7 +10,7 @@ module.exports = (router) => {
         });
 
     router.get('/outlets/:id',
-        findModelByMiddleware(OutletModel, {_id: 'id'}, 'req.params', 'outlet'),
+        findModelByMiddleware(OutletModel, {_id: 'id'}, 'params', 'outlet'),
         (req, res) => {
             res.jsonSuccess(req.outlet);
         });
@@ -22,7 +22,7 @@ module.exports = (router) => {
         });
 
     router.patch('/outlets/:id',
-        findModelByMiddleware(OutletModel, {_id: 'id'}, 'req.params', 'outlet'),
+        findModelByMiddleware(OutletModel, {_id: 'id'}, 'params', 'outlet'),
         async (req, res) => {
             try {
                 for (let key in req.body) {

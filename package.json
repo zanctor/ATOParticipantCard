@@ -6,7 +6,7 @@
     "start": "pm2 start index.js"
   },
   "dependencies": {
-    "bcrypt": "latest",
+    "bcrypt-nodejs": "latest",
     "body-parser": "latest",
     "env2": "latest",
     "express": "latest",

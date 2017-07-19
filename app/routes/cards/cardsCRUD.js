@@ -10,7 +10,7 @@ module.exports = (router) => {
         });
 
     router.get('/cards/:id',
-        findModelByMiddleware(CardModel, {_id: 'id'}, 'req.params', 'card'),
+        findModelByMiddleware(CardModel, {_id: 'id'}, 'params', 'card'),
         async (req, res) => {
             res.jsonSuccess(req.card);
         });
@@ -22,7 +22,7 @@ module.exports = (router) => {
         });
 
     router.patch('/cards/:id',
-        findModelByMiddleware(CardModel, {_id: 'id'}, 'req.params', 'card'),
+        findModelByMiddleware(CardModel, {_id: 'id'}, 'params', 'card'),
         async (req, res) => {
             try {
                 for (let key in req.body) {

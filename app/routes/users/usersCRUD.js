@@ -16,7 +16,7 @@ module.exports = (router) => {
 
     router.get('/users/:id',
         checkEndpointAccessMiddleware(4),
-        findModelByMiddleware(UserModel, {_id: 'id'}, 'req.params', 'user'),
+        findModelByMiddleware(UserModel, {_id: 'id'}, 'params', 'user'),
         (req, res) => {
             res.jsonSuccess(req.user);
         });
@@ -30,7 +30,7 @@ module.exports = (router) => {
         });
 
     router.patch('/users/:id',
-        findModelByMiddleware(UserModel, {_id: 'id'}, 'req.params', 'user'),
+        findModelByMiddleware(UserModel, {_id: 'id'}, 'params', 'user'),
         async (req, res) => {
             try {
                 for (let key in req.body) {

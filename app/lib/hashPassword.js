@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 module.exports = (password) => {
-    return bcrypt.hash(password, 11);
+    return bcrypt.hashSync(password, global.GlobalAppVars.SECRET_KEY);
 };
