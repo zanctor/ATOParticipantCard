@@ -8,6 +8,10 @@ const {UserModel} = require('../../models/appModels');
 
 module.exports = (router) => {
 
+    router.get('/user', async (req, res) => {
+       res.jsonSuccess(req.user);
+    });
+
     router.get('/users',
         checkEndpointAccessMiddleware(4),
         async (req, res) => {
@@ -30,18 +34,22 @@ module.exports = (router) => {
         });
 
     router.patch('/users/:id',
-        findModelByMiddleware(UserModel, {_id: 'id'}, 'params', 'user'),
+        findModelByMiddleware(UserModel, {_id: 'id'}, 'params', 'userModel'),
         async (req, res) => {
             try {
-                for (let key in req.body) {
-                    if (key === 'password') {
-                        req.user[key] = hashPassword(req.body[key]);
-                    } else {
-                        req.user[key] = req.body[key];
+                if (req.user.id === req.params.id || req.user.role === 4) {
+                    for (let key in req.body) {
+                        if (key === 'password') {
+                            req.userModel[key] = hashPassword(req.body[key]);
+                        } else {
+                            req.userModel[key] = req.body[key];
+                        }
                     }
+                    await req.userModel.save();
+                    res.jsonSuccess();
+                } else {
+                    res.errorResponse(403, 'Denied');
                 }
-                await req.user.save();
-                res.jsonSuccess();
             } catch (e) {
                 res.errorResponse(400, e);
             }
