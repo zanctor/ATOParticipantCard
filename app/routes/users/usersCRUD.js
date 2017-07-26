@@ -49,7 +49,7 @@ module.exports = (router) => {
 
     router.delete('/users/:id',
         checkEndpointAccessMiddleware(4),
-        findModelByMiddleware(UserModel, {_id: 'id'}, 'req.params', 'user'),
+        findModelByMiddleware(UserModel, {_id: 'id'}, 'params', 'user'),
         async (req, res) => {
             if (req.user.role === 4) return res.errorResponse(403, 'You can not delete this user');
             await req.user.delete();
