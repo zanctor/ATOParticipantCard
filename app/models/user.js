@@ -14,6 +14,6 @@ const User = new Schema({
     avatarUrl: String
 });
 
-User.plugin(mongooseDelete);
+User.plugin(mongooseDelete, {overrideMethods: true});
 
 module.exports = mongoose.model('User', User);
