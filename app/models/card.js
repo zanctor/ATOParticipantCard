@@ -9,6 +9,6 @@ const Card = new Schema({
     holder: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
-Card.plugin(mongooseDelete);
+Card.plugin(mongooseDelete, {overrideMethods: true});
 
 module.exports = mongoose.model('Card', Card);

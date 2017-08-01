@@ -12,6 +12,6 @@ const Outlet = new Schema({
     provider: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
-Outlet.plugin(mongooseDelete);
+Outlet.plugin(mongooseDelete, {overrideMethods: true});
 
 module.exports = mongoose.model('Outlet', Outlet);

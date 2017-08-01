@@ -36,7 +36,7 @@ module.exports = (router) => {
         });
 
     router.delete('/outlets/:id',
-        findModelByMiddleware(OutletModel, {_id: 'id'}, 'req.params', 'outlet'),
+        findModelByMiddleware(OutletModel, {_id: 'id'}, 'params', 'outlet'),
         async (req, res) => {
             await req.outlet.delete();
             res.jsonSuccess();

@@ -3,7 +3,7 @@ const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-    name: {type: String, required: true},
+    firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     gender: {type: Boolean, default: true},
     email: {type: String, required: true, unique: true},
@@ -14,6 +14,6 @@ const User = new Schema({
     avatarUrl: String
 });
 
-User.plugin(mongooseDelete);
+User.plugin(mongooseDelete, {overrideMethods: true});
 
 module.exports = mongoose.model('User', User);
