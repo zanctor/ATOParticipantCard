@@ -1,7 +1,6 @@
 const checkEndpointAccessMiddleware = require('../../auth/middleware/checkEndpointAccessMiddleware');
 const createModelMiddleware = require('../middleware/createModelMiddleware');
 const findModelByMiddleware = require('../middleware/findModelByMiddleware');
-const checkMiddleware = require('../middleware/checkMiddleware');
 const hashPasswordMiddleware = require('../../auth/middleware/hashPasswordMiddleware');
 const hashPassword = require('../../lib/hashPassword');
 const {UserModel} = require('../../models/appModels');

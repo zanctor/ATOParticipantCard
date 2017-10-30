@@ -4,7 +4,7 @@ const {UserModel} = require(global.GlobalAppVars.appModelsFilePath);
 module.exports = () => {
     return async (req, res, next) => {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
-        if (!token) return res.errorResponse(400, 'Token is absent');
+        if (!token) return res.errorResponse(401, 'Token is absent');
 
         try {
             const decoded = jwt.verify(token, global.GlobalAppVars.env.SECRET_KEY);
