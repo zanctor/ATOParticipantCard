@@ -11,7 +11,8 @@ const User = new Schema({
     phone: String,
     password: {type: String, required: true},
     role: {type: Number, default: 1},
-    avatarUrl: String
+    avatarUrl: String,
+    documentImage: String
 });
 
 User.plugin(mongooseDelete, {overrideMethods: true});
