@@ -9,7 +9,7 @@ module.exports = (Model) => {
               totalCount: await Model.count().exec()
             };
 
-            res.jsonSuccess(await Model.findAll().limit(perPage).skip(perPage * page).exec(), meta);
+            res.jsonSuccess(await Model.find().limit(perPage).skip(perPage * page).exec(), meta);
         } catch (e) {
             res.errorResponse(400, e);
         }
